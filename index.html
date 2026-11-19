@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Henry Noguchi</title>
+<meta name="description" content="Engenharia de software e IA para dados ambientais: pipelines de dados oceânicos e atmosféricos, sistemas geoespaciais e agentes LLM com validação determinística.">
+<meta property="og:title" content="Henry Noguchi">
+<meta property="og:description" content="Engenharia de software e IA para dados ambientais.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#081a2e; --bg2:#0d2440; --card:#0f2a4a; --line:#1e3a5f;
+  --text:#e6edf5; --muted:#9fb3c8; --accent:#2dd4bf; --accent2:#60a5fa;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --head:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+html[data-lang="pt"] [lang="en"], html[data-lang="en"] [lang="pt"]{display:none}
+
+header.top{position:sticky;top:0;z-index:5;background:rgba(8,26,46,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{font-family:var(--head);font-weight:700;color:var(--text);letter-spacing:.2px}
+nav{display:flex;gap:18px;margin-left:auto;font-size:14px}
+nav a{color:var(--muted)}
+nav a:hover{color:var(--text);text-decoration:none}
+.lang{font:500 12px var(--mono);background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 8px;cursor:pointer}
+.lang:hover{color:var(--text);border-color:var(--accent)}
+@media (max-width:640px){nav{display:none}.lang{margin-left:auto}}
+
+.hero{padding:88px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(600px 300px at 85% 10%,rgba(45,212,191,.12),transparent 70%),
+  radial-gradient(500px 260px at 10% 90%,rgba(96,165,250,.10),transparent 70%);pointer-events:none}
+.kicker{font:500 13px var(--mono);color:var(--accent);margin:0 0 14px}
+h1{font-family:var(--head);font-size:clamp(36px,6vw,58px);line-height:1.05;margin:0 0 18px;letter-spacing:-.5px}
+.lead{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:720px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;border:1px solid var(--line);color:var(--text);font-weight:500;font-size:14px}
+.btn:hover{border-color:var(--accent);text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#04201c}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-family:var(--head);font-size:26px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 28px;max-width:720px}
+
+.live{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.live a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);transition:border-color .2s}
+.live a:hover{border-color:var(--accent)}
+.live img{display:block;width:100%;height:auto}
+@media (max-width:760px){.live{grid-template-columns:1fr}}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .tag{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.8px;color:var(--accent2);margin-bottom:8px}
+.card h3{font-family:var(--head);font-size:19px;margin:0 0 8px}
+.card p{color:var(--muted);font-size:14.5px;margin:0 0 14px;flex:1}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.stack span{font:400 12px var(--mono);color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:2px 7px}
+.links{display:flex;gap:14px;font-size:14px;font-weight:500}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:middle;box-shadow:0 0 0 0 rgba(45,212,191,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(45,212,191,0)}100%{box-shadow:0 0 0 0 rgba(45,212,191,0)}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}.card{transition:none}.card:hover{transform:none}html{scroll-behavior:auto}}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:760px){.cols{grid-template-columns:1fr;gap:24px}}
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 22px 20px}
+.tl li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.tl .when{font:500 12px var(--mono);color:var(--accent)}
+.tl .what{font-weight:600;display:block}
+.tl .desc{color:var(--muted);font-size:14.5px}
+h3.col{font-family:var(--head);font-size:17px;margin:0 0 16px;color:var(--text)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:13.5px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--text);background:var(--bg2)}
+.chips.groups{margin-bottom:10px}
+.skillrow{margin-bottom:18px}
+.skillrow b{display:block;font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+
+.hobbies{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.hobbies div{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg2);font-size:14.5px;color:var(--muted)}
+.hobbies b{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
+
+footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">Henry Noguchi</a>
+    <nav>
+      <a href="#ao-vivo"><span lang="pt">Ao vivo</span><span lang="en">Live</span></a>
+      <a href="#projetos"><span lang="pt">Projetos</span><span lang="en">Projects</span></a>
+      <a href="#trajetoria"><span lang="pt">Trajetória</span><span lang="en">Background</span></a>
+      <a href="#contato"><span lang="pt">Contato</span><span lang="en">Contact</span></a>
+    </nav>
+    <button class="lang" id="lang" type="button" aria-label="Mudar idioma / Switch language">EN</button>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <p class="kicker">Rio de Janeiro · Biologia @ UERJ · ADS @ UVA</p>
+    <h1 lang="pt">Software e IA para dados ambientais.</h1>
+    <h1 lang="en">Software and AI for environmental data.</h1>
+    <p class="lead" lang="pt">Construo pipelines de dados oceânicos e atmosféricos, sistemas geoespaciais e agentes LLM que combinam regras determinísticas com revisão humana. Trabalho no desenvolvimento da equipe ambiental de uma consultoria de monitoramento offshore e faço Iniciação Científica em modelagem atmosférica no NAPROA (UERJ).</p>
+    <p class="lead" lang="en">I build ocean and atmospheric data pipelines, geospatial systems and LLM agents that pair deterministic rules with human review. Developer on the environmental team of an offshore monitoring consultancy and undergraduate researcher in atmospheric modeling at NAPROA (UERJ).</p>
+    <div class="cta">
+      <a class="btn primary" href="#projetos"><span lang="pt">Ver projetos</span><span lang="en">See projects</span></a>
+      <a class="btn" href="https://github.com/hnryguchi">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/henry-noguchi-340933201/">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<section id="ao-vivo">
+  <div class="wrap">
+    <h2><span class="dot" aria-hidden="true"></span><span lang="pt">Pipelines em execução</span><span lang="en">Running pipelines</span></h2>
+    <p class="sub" lang="pt">Os dois painéis abaixo são reconstruídos todos os dias pelo GitHub Actions a partir de dados públicos da NOAA, sem intervenção manual.</p>
+    <p class="sub" lang="en">Both panels below are rebuilt every day by GitHub Actions from public NOAA data, with no manual step.</p>
+    <div class="live">
+      <a href="https://hnryguchi.github.io/CoralGuard/">
+        <img lang="pt" src="https://hnryguchi.github.io/CoralGuard/status-pt.svg" alt="Recifes de coral do Brasil: anomalia de temperatura, estresse térmico e nível de alerta de hoje (NOAA)" loading="lazy">
+        <img lang="en" src="https://hnryguchi.github.io/CoralGuard/status.svg" alt="Brazilian coral reefs: today's temperature anomaly, heat stress and alert level (NOAA)" loading="lazy">
+      </a>
+      <a href="https://hnryguchi.github.io/metocean-qc/">
+        <img lang="pt" src="https://hnryguchi.github.io/metocean-qc/41010/status-pt.svg" alt="Boia 41010 da NOAA: últimas leituras, gráfico de 72 horas e flags do controle de qualidade" loading="lazy">
+        <img lang="en" src="https://hnryguchi.github.io/metocean-qc/41010/status.svg" alt="NOAA buoy 41010: latest readings, 72-hour chart and quality-control flags" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="projetos">
+  <div class="wrap">
+    <h2 lang="pt">Projetos</h2><h2 lang="en">Projects</h2>
+    <p class="sub" lang="pt">Os sistemas da empresa estão em produção e o código é proprietário; os estudos de caso documentam arquitetura e decisões técnicas, sem dados de clientes. Os projetos pessoais são abertos.</p>
+    <p class="sub" lang="en">Company systems are in production and their code is proprietary; the case studies document architecture and technical decisions, with no client data. Personal projects are open source.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="tag"><span lang="pt">Produção · estudo de caso</span><span lang="en">Production · case study</span></div>
+        <h3 lang="pt">Portal de gestão ambiental</h3><h3 lang="en">Environmental compliance portal</h3>
+        <p lang="pt">Portal multi-tenant de conformidade ambiental: área interna para criar, revisar e publicar; portal do cliente somente leitura, com isolamento por projeto, RBAC e trilha de auditoria.</p>
+        <p lang="en">Multi-tenant environmental compliance portal: an internal area to author, review and publish, and a read-only client portal with per-project isolation, RBAC and an audit trail.</p>
+        <div class="stack"><span>Next.js</span><span>Prisma</span><span>PostgreSQL</span><span>Azure</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/case-study-environmental-portal"><span lang="pt">Estudo de caso</span><span lang="en">Case study</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Produção · estudo de caso</span><span lang="en">Production · case study</span></div>
+        <h3 lang="pt">Mapa de operações marítimas</h3><h3 lang="en">Maritime operations map</h3>
+        <p lang="pt">Mapa público de operações offshore para a comunidade pesqueira: ingestão por e-mail, validação por regras, revisão por LLM e visualização em WebGL2.</p>
+        <p lang="en">Public map of offshore operations for the fishing community: e-mail ingestion, rule-based validation, LLM review and WebGL2 rendering.</p>
+        <div class="stack"><span>Next.js</span><span>WebGL2</span><span>Azure Logic Apps</span><span>Claude API</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/case-study-maritime-operations-map"><span lang="pt">Estudo de caso</span><span lang="en">Case study</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Produção · estudo de caso</span><span lang="en">Production · case study</span></div>
+        <h3 lang="pt">Agentes acionados por e-mail</h3><h3 lang="en">E-mail-driven agents</h3>
+        <p lang="pt">Agentes que revisam planilhas técnicas de monitoramento: motor de regras determinístico, segunda opinião de LLM e saída em rascunho para aprovação humana.</p>
+        <p lang="en">Agents that review technical monitoring spreadsheets: a deterministic rule engine, an LLM second opinion and draft output for human approval.</p>
+        <div class="stack"><span>Python</span><span>PowerShell</span><span>Claude API</span><span>Outlook COM</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/case-study-email-driven-agents"><span lang="pt">Estudo de caso</span><span lang="en">Case study</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Open source · ao vivo</span><span lang="en">Open source · live</span></div>
+        <h3>CoralGuard</h3>
+        <p lang="pt">Painel interativo do estresse térmico por satélite nos recifes de coral do Brasil desde 1985 (NOAA Coral Reef Watch), reconstruído diariamente.</p>
+        <p lang="en">Interactive dashboard of satellite heat stress on Brazil's coral reefs since 1985 (NOAA Coral Reef Watch), rebuilt daily.</p>
+        <div class="stack"><span>Python</span><span>GitHub Actions</span><span>GeoJSON</span><span>Pages</span></div>
+        <div class="links"><a href="https://hnryguchi.github.io/CoralGuard/"><span lang="pt">Painel</span><span lang="en">Dashboard</span></a><a href="https://github.com/hnryguchi/CoralGuard"><span lang="pt">Código</span><span lang="en">Code</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Open source · ao vivo</span><span lang="en">Open source · live</span></div>
+        <h3>metocean-qc</h3>
+        <p lang="pt">Controle de qualidade de séries de boias e estações no padrão QARTOD (faixa, pico, linha plana, lacunas), com agrupamento de eventos e segunda opinião opcional de LLM. CI em Python 3.10–3.13.</p>
+        <p lang="en">Quality control for buoy and station time series following QARTOD (gross range, spike, flat line, gaps), with event grouping and an optional LLM second opinion. CI on Python 3.10–3.13.</p>
+        <div class="stack"><span>Python</span><span>pytest</span><span>Docker</span><span>QARTOD</span></div>
+        <div class="links"><a href="https://hnryguchi.github.io/metocean-qc/"><span lang="pt">Painel</span><span lang="en">Dashboard</span></a><a href="https://github.com/hnryguchi/metocean-qc"><span lang="pt">Código</span><span lang="en">Code</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Hardware · Jovens Cientistas Cariocas</span><span lang="en">Hardware · Young Scientists program</span></div>
+        <h3>Aerys</h3>
+        <p lang="pt">Monitoramento ambiental urbano de baixo custo: estação ESP32 (temperatura, umidade, pressão) e painel público. Selecionado pelo programa Jovens Cientistas Cariocas.</p>
+        <p lang="en">Low-cost urban environmental monitoring: an ESP32 station (temperature, humidity, pressure) with a public dashboard. Selected by the Jovens Cientistas Cariocas program.</p>
+        <div class="stack"><span>ESP32</span><span>Next.js</span><span>Supabase</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/aerys"><span lang="pt">Código</span><span lang="en">Code</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Produção</span><span lang="en">Production</span></div>
+        <h3 lang="pt">Ficha de avaliação por QR Code</h3><h3 lang="en">QR code evaluation form</h3>
+        <p lang="pt">Formulário de avaliação de treinamentos a bordo: gera o PDF assinado e sincroniza com o SharePoint da equipe. Código proprietário.</p>
+        <p lang="en">Onboard training evaluation form: generates the signed PDF and syncs it to the team's SharePoint. Proprietary code.</p>
+        <div class="stack"><span>Flask</span><span>Azure App Service</span><span>Microsoft Graph</span></div>
+      </article>
+
+      <article class="card">
+        <div class="tag">Open source</div>
+        <h3 lang="pt">Prompts de engenharia</h3><h3 lang="en">Engineering prompts</h3>
+        <p lang="pt">Templates de prompt para agentes de código: auditorias somente leitura, gates de aprovação, dados verificáveis e agentes revisores.</p>
+        <p lang="en">Prompt templates for coding agents: read-only audits, approval gates, verifiable data and reviewer agents.</p>
+        <div class="stack"><span>LLM</span><span>Agents</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/engineering-prompts"><span lang="pt">Repositório</span><span lang="en">Repository</span></a></div>
+      </article>
+
+      <article class="card">
+        <div class="tag"><span lang="pt">Extensão universitária</span><span lang="en">University outreach</span></div>
+        <h3>RoboCAP</h3>
+        <p lang="pt">Projeto de extensão em robótica: projetos com Arduino, oficinas e minicursos de lógica de programação.</p>
+        <p lang="en">Robotics outreach project: Arduino builds, workshops and short courses on programming logic.</p>
+        <div class="stack"><span>Arduino</span><span>C++</span></div>
+        <div class="links"><a href="https://github.com/hnryguchi/Robocap-Project"><span lang="pt">Repositório</span><span lang="en">Repository</span></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="trajetoria">
+  <div class="wrap">
+    <h2 lang="pt">Trajetória</h2><h2 lang="en">Background</h2>
+    <p class="sub" lang="pt">Biologia e computação em paralelo: o dado ambiental vem do campo, a engenharia faz com que ele chegue certo a quem decide.</p>
+    <p class="sub" lang="en">Biology and computing in parallel: environmental data comes from the field, and engineering gets it right to the people who decide.</p>
+    <div class="cols">
+      <div>
+        <h3 class="col" lang="pt">Experiência</h3><h3 class="col" lang="en">Experience</h3>
+        <ul class="tl">
+          <li><span class="when">2026 →</span>
+            <span class="what" lang="pt">Equipe ambiental · consultoria de monitoramento offshore</span><span class="what" lang="en">Environmental team · offshore monitoring consultancy</span>
+            <span class="desc" lang="pt">Portal de clientes, mapa público de operações, agentes LLM e automações de dados em produção no Azure.</span><span class="desc" lang="en">Client portal, public operations map, LLM agents and data automations in production on Azure.</span></li>
+          <li><span class="when">2026 →</span>
+            <span class="what" lang="pt">Iniciação Científica · NAPROA, Oceanografia UERJ</span><span class="what" lang="en">Undergraduate research · NAPROA, UERJ Oceanography</span>
+            <span class="desc" lang="pt">Ciência de dados e modelagem atmosférica: influência dos oceanos Pacífico e Atlântico no clima do Sudeste.</span><span class="desc" lang="en">Data science and atmospheric modeling: how Pacific and Atlantic temperatures drive climate in Southeast Brazil.</span></li>
+          <li><span class="when">2025 – 2026</span>
+            <span class="what" lang="pt">Bolsista de extensão em robótica · RoboCAP</span><span class="what" lang="en">Robotics outreach fellow · RoboCAP</span>
+            <span class="desc" lang="pt">Arduino, oficinas e minicursos de lógica de programação.</span><span class="desc" lang="en">Arduino, workshops and programming logic courses.</span></li>
+          <li><span class="when">2025</span>
+            <span class="what" lang="pt">Estágio em consultoria ambiental</span><span class="what" lang="en">Environmental consulting internship</span></li>
+          <li><span class="when">2023 – 2024</span>
+            <span class="what" lang="pt">Estágio em e-Ciência</span><span class="what" lang="en">e-Science internship</span>
+            <span class="desc" lang="pt">Automação em Python, Git e nuvem.</span><span class="desc" lang="en">Python automation, Git and cloud.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="col" lang="pt">Formação</h3><h3 class="col" lang="en">Education</h3>
+        <ul class="tl">
+          <li><span class="when">2022 →</span>
+            <span class="what" lang="pt">Ciências Biológicas · UERJ</span><span class="what" lang="en">Biological Sciences · UERJ</span>
+            <span class="desc" lang="pt">Ênfase em Meio Ambiente.</span><span class="desc" lang="en">Environmental track.</span></li>
+          <li><span class="when">2026 →</span>
+            <span class="what" lang="pt">Análise e Desenvolvimento de Sistemas · UVA</span><span class="what" lang="en">Systems Analysis and Development · UVA</span></li>
+        </ul>
+        <h3 class="col" lang="pt" style="margin-top:12px">Ferramentas</h3><h3 class="col" lang="en" style="margin-top:12px">Tools</h3>
+        <div class="skillrow"><b lang="pt">Linguagens</b><b lang="en">Languages</b><div class="chips"><span>Python</span><span>TypeScript</span><span>SQL</span><span>C++ (Arduino)</span><span>PowerShell</span></div></div>
+        <div class="skillrow"><b lang="pt">Web &amp; dados</b><b lang="en">Web &amp; data</b><div class="chips"><span>Next.js</span><span>PostgreSQL</span><span>Prisma</span><span>GeoJSON</span><span>WebGL2</span></div></div>
+        <div class="skillrow"><b lang="pt">IA &amp; infraestrutura</b><b lang="en">AI &amp; infrastructure</b><div class="chips"><span>Claude API</span><span>Azure</span><span>GitHub Actions</span><span>Docker</span><span>pytest</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fora">
+  <div class="wrap">
+    <h2 lang="pt">Fora do código</h2><h2 lang="en">Outside of code</h2>
+    <div class="hobbies">
+      <div><b>Hardware</b><span lang="pt">Monto os próprios equipamentos; o Aerys começou como protótipo físico com ESP32.</span><span lang="en">I build my own devices; Aerys started as a physical ESP32 prototype.</span></div>
+      <div><b>Games</b><span lang="pt">Acompanho como jogos são projetados e construídos; desenvolvimento de jogos é uma área em que quero trabalhar.</span><span lang="en">I follow how games are designed and built; game development is a field I want to work in.</span></div>
+      <div><b lang="pt">Fotografia</b><b lang="en">Photography</b><span lang="pt">Filme instantâneo na Fujifilm Instax e digital antiga na FinePix 4800.</span><span lang="en">Instant film on a Fujifilm Instax and early digital on a FinePix 4800.</span></div>
+      <div><b lang="pt">Música</b><b lang="en">Music</b><span lang="pt">Guitarra. </span><span lang="en">Guitar. </span><a href="https://open.spotify.com/user/31ilerrhi3kodpoigqprs65xdrz4">Spotify</a> · <a href="https://github.com/hnryguchi/spotify-setup">spotify-setup</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <span>Henry Noguchi · Rio de Janeiro</span>
+    <span><a href="https://github.com/hnryguchi">GitHub</a> · <a href="https://www.linkedin.com/in/henry-noguchi-340933201/">LinkedIn</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('lang');
+  function set(l){
+    root.setAttribute('data-lang',l);
+    root.setAttribute('lang',l==='en'?'en':'pt-BR');
+    btn.textContent=l==='en'?'PT':'EN';
+    try{localStorage.setItem('lang',l)}catch(e){}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('lang')}catch(e){}
+  if(!saved){saved=(navigator.language||'').toLowerCase().indexOf('pt')===0?'pt':'en'}
+  set(saved);
+  btn.addEventListener('click',function(){set(root.getAttribute('data-lang')==='en'?'pt':'en')});
+})();
+</script>
+</body>
+</html>
